@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ResumeMatch AI — Resume Analyzer &amp; Job Match Predictor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark"></span>
+    ResumeMatch<span class="brand-ai">AI</span>
+  </div>
+  <nav class="topnav">
+    <a href="#how">Ye kaam kaise karta hai</a>
+    <a href="#analyzer">Analyzer</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <p class="hero-kicker">Resume Analyzer &amp; Job Match Predictor</p>
+    <h1>Aapka resume,<br>ek job description ke saamne<br><em>kitna khada utarta hai.</em></h1>
+    <p class="hero-sub">Resume upload karo, job description paste karo — NLP engine dono ko match karke score, missing skills aur suggestions deta hai. Sab kuch browser me, real time me.</p>
+    <a href="#analyzer" class="hero-cta">Analyzer try karo ↓</a>
+  </div>
+  <div class="hero-stage">
+    <canvas id="matchCanvas"></canvas>
+    <div class="hero-score" id="heroScore">
+      <span class="score-num">—</span>
+      <span class="score-label">match score</span>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <h2>Engine ke andar teen steps hote hain</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <span class="how-tag">Extract</span>
+      <h3>Resume se text nikalna</h3>
+      <p>PDF resume ko parse karke raw text nikala jaata hai — headings, bullet points, sab kuch clean text me convert hota hai.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-tag">Understand</span>
+      <h3>Skills aur entities pehchaanna</h3>
+      <p>NLP model (spaCy) resume aur job description dono me se skills, tools, aur experience keywords nikalta hai.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-tag">Match</span>
+      <h3>Similarity score nikalna</h3>
+      <p>Dono texts ko vectors me convert karke cosine similarity se match % calculate hota hai, saath missing skills bhi dikhti hain.</p>
+    </div>
+  </div>
+</section>
+
+<section class="analyzer" id="analyzer">
+  <h2>Analyzer try karo</h2>
+  <p class="analyzer-sub">Ye demo browser me hi ek halka keyword-matching model chala raha hai. Real project me ye kaam Python backend (Flask + spaCy) karega — uska code neeche diye gaye files me hai.</p>
+
+  <div class="analyzer-grid">
+    <div class="panel">
+      <label for="resumeInput">Resume text paste karo</label>
+      <textarea id="resumeInput" placeholder="Apna resume yahan paste karo... (skills, experience, tools)"></textarea>
+    </div>
+    <div class="panel">
+      <label for="jdInput">Job description paste karo</label>
+      <textarea id="jdInput" placeholder="Job description yahan paste karo..."></textarea>
+    </div>
+  </div>
+
+  <button id="analyzeBtn" class="analyze-btn">Match score calculate karo</button>
+
+  <div class="result" id="resultBox" hidden>
+    <div class="result-score">
+      <svg viewBox="0 0 120 120" class="ring">
+        <circle cx="60" cy="60" r="52" class="ring-bg" />
+        <circle cx="60" cy="60" r="52" class="ring-fg" id="ringFg" />
+      </svg>
+      <div class="result-score-num" id="resultScoreNum">0%</div>
+    </div>
+    <div class="result-details">
+      <div class="result-block">
+        <h4>Match hui skills</h4>
+        <div class="chip-row" id="matchedChips"></div>
+      </div>
+      <div class="result-block">
+        <h4>Missing skills</h4>
+        <div class="chip-row" id="missingChips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>College mini-project demo — ResumeMatch AI. Neeche step-by-step guide aur backend code diya gaya hai.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
