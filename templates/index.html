@@ -106,5 +106,23 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    document.getElementById("resumeFile").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    document.getElementById("fileName").textContent = "✅ " + file.name;
+    const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+    let text = "";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map((s) => s.str).join(" ") + "\n";
+    }
+    document.getElementById("resumeText").value = text;
+    });
+  </script>
 </body>
 </html>
