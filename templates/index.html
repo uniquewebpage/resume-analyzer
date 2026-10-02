@@ -64,9 +64,13 @@
 
   <div class="analyzer-grid">
     <div class="panel">
-      <label for="resumeInput">Resume text paste karo</label>
-      <textarea id="resumeInput" placeholder="Apna resume yahan paste karo... (skills, experience, tools)"></textarea>
-    </div>
+    <label for="resumeFile" style="display:block;padding:24px;border:2px dashed #888;border-radius:12px;text-align:center;cursor:pointer">
+      📄 Click karke apna resume PDF choose karo
+    </label> 
+    <input type="file" id="resumeFile" accept="application/pdf" hidden>
+    <p id="fileName"></p>
+    </div> 
+
     <div class="panel">
       <label for="jdInput">Job description paste karo</label>
       <textarea id="jdInput" placeholder="Job description yahan paste karo..."></textarea>
